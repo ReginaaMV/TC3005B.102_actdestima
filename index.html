@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora de estimación de software</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <h1>Calculadora de estimación de software</h1>
+  <p class="sub">TC3005B · Modelos de estimación: COCOMO básico, COSMIC y Puntos de Función.</p>
+</header>
+<main>
+<nav role="tablist">
+  <button role="tab" data-t="cocomo" aria-selected="true">COCOMO</button>
+  <button role="tab" data-t="cosmic" aria-selected="false">COSMIC</button>
+  <button role="tab" data-t="fp" aria-selected="false">Puntos de Función</button>
+  <button role="tab" data-t="check" aria-selected="false">Ejercicios de clase</button>
+</nav>
+
+<section id="cocomo" class="on">
+  <h2>COCOMO básico</h2>
+  <div class="row">
+    <div><label for="c-mode">Modo de desarrollo</label>
+      <select id="c-mode"><option value="organico">Orgánico</option><option value="semi">Semi-acoplado</option><option value="empotrado">Empotrado</option></select></div>
+    <div><label for="c-kloc">Tamaño (KLOC)</label><input id="c-kloc" type="number" min="0.1" step="0.1" value="12"></div>
+    <div><label for="c-sal">Salario mensual por persona (opcional)</label><input id="c-sal" type="number" min="0" step="500" value="18000"></div>
+  </div>
+  <button class="btn" id="c-go">Calcular</button>
+  <div class="out" id="c-out"></div>
+  <p><small>E = a × KLOC^b · D = c × E^d · P = E / D. Costo = E × salario mensual.</small></p>
+</section>
+
+<section id="cosmic">
+  <h2>COSMIC (CFP)</h2>
+  <p><small>Cada proceso funcional: cuántos movimientos de Entrada (E), Salida (X), Lectura (R) y Escritura (W). 1 movimiento = 1 CFP.</small></p>
+  <div class="scroll"><table id="s-table"><thead><tr><th>Proceso funcional</th><th>E</th><th>X</th><th>R</th><th>W</th><th>CFP</th><th></th></tr></thead><tbody></tbody></table></div>
+  <div class="row"><div><label for="s-rate">Horas-persona por CFP</label><input id="s-rate" type="number" min="0" step="0.5" value="8"></div></div>
+  <button class="btn" id="s-add">Agregar proceso</button><button class="btn alt" id="s-go">Calcular</button>
+  <div class="out" id="s-out"></div>
+</section>
+
+<section id="fp">
+  <h2>Puntos de Función (IFPUG)</h2>
+  <p><small>Escribe cuántos componentes hay de cada complejidad.</small></p>
+  <div class="scroll"><table id="f-table"><thead><tr><th>Componente</th><th>Baja</th><th>Media</th><th>Alta</th></tr></thead><tbody></tbody></table></div>
+  <div class="row"><div><label for="f-tdi">TDI (suma de 14 características, 0 a 70)</label><input id="f-tdi" type="number" min="0" max="70" value="35"></div></div>
+  <button class="btn" id="f-go">Calcular</button>
+  <div class="out" id="f-out"></div>
+  <p><small>UFP = Σ (cantidad × peso) · VAF = 0.65 + 0.01 × TDI · PFA = UFP × VAF.</small></p>
+</section>
+
+<section id="check">
+  <h2>Comprobación con el material de clase</h2>
+  <p><small>La app usa las mismas funciones de cálculo y las compara contra los resultados esperados.</small></p>
+  <div class="scroll"><table id="k-table"><thead><tr><th>Caso</th><th>Esperado</th><th>Calculado</th><th></th></tr></thead><tbody></tbody></table></div>
+  <button class="btn" id="k-go">Ejecutar comprobación</button>
+</section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
